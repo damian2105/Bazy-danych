@@ -1,0 +1,40 @@
+CREATE SCHEMA Zamowienia 
+
+CREATE TABLE Zamowienia.Produkty(
+	IDProduktu varchar(5) UNIQUE NOT NULL PRIMARY KEY,
+	NazwaProduktu varchar(40),
+	CenaBrutto DOUBLE(6), 
+	CenaNetto DOUBLE(6)
+);
+
+CREATE TABLE Zamowienia.Dostawcy(
+	IdDostawcy varchar(5) UNIQUE NOT NULL PRIMARY KEY,
+	Dostawca varchar(40),
+  	MiejscowoscDostawcy VARCHAR(30)
+  	KodPocztowy VARCHAR(5)
+	Ulica varchar(30),
+	NrBudynku varchar(5)
+);
+
+CREATE TABLE Zamowienia.zamowienia(
+	IDUslugi INT PRIMARY KEY UNIQUE NOT NULL,
+	IDProduktu VARCHAR(4) REFERENCES Zamowienia.Produkty(IdProduktu),
+	IDDostawcy VARCHAR(4) REFERENCES Zamowienia.Dostawcy(IdDostawcy)
+);
+
+INSERT INTO Zamowienia.Produkty VALUES ('MN1',	'Makaron Nitki', 130, 150);
+INSERT INTO Zamowienia.Produkty VALUES('KP2',	'Keczup pikantny', 200, 220);
+INSERT INTO Zamowienia.Produkty VALUES('SP3', 'Sos pomidorowy', 89, 110);
+
+INSERT INTO Zamowienia.Dostawcy VALUES('MP', 'Makarony Polskie', 'Kraków', '31-435', 'Turystyczna', '40');
+INSERT INTO Zamowienia.Dostawcy VALUES('PP', 'Polskie przetwory',	'Kraków', '31-342', 'Wojska Polskiego',	'44a');
+INSERT INTO Zamowienia.Dostawcy VALUES('LM', 'Lubelski Makaron', 'Lublin', '04-242', 'Piłsudskiego', '332a');
+INSERT INTO Zamowienia.Dostawcy VALUES('PPom', 'Przetwory pomidorowe', 'Tarnów', '30-243', 'Rolnicza', '22/4');
+INSERT INTO Zamowienia.Dostawcy VALUES('MS', 'Małopolskie smaki',	'Nowy Targ', '35-434', 'Mickiewicza', '223/77');
+
+INSERT INTO Zamowienia.zamowienia VALUES (1,'MN1', 'MP');
+INSERT INTO Zamowienia.zamowienia VALUES (2,'KP2', 'PP');
+INSERT INTO Zamowienia.zamowienia VALUES (3,'SP3', 'PP');
+INSERT INTO Zamowienia.zamowienia VALUES (4,'MN1', 'LM');
+INSERT INTO Zamowienia.zamowienia VALUES (5,'KP2', 'PPom');
+INSERT INTO Zamowienia.zamowienia VALUES (6,'SP3', 'MS');
